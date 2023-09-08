@@ -40,6 +40,5 @@ class AppPages {
       page: () => ChatScreen(),
       binding: ChatBinding(),
     ),
-
   ];
 }

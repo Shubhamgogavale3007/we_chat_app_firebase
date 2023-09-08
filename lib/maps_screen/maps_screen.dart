@@ -1,12 +1,6 @@
-import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:we_chat_app/location_services.dart';
-import 'package:we_chat_app/modules/chat_screen/chat_controller/chat_controller.dart';
-
-
 
 class MapsScreen extends StatefulWidget {
   const MapsScreen({super.key});
@@ -16,10 +10,8 @@ class MapsScreen extends StatefulWidget {
 }
 
 class _MapsScreenState extends State<MapsScreen> {
-
-
-  String ?lat , lng;
-    CameraPosition kGooglePlex = CameraPosition(
+  String? lat, lng;
+  CameraPosition kGooglePlex = CameraPosition(
     target: LatLng(23.04514731288731, 72.51512427787496),
     zoom: 17.4746,
   );
@@ -33,24 +25,18 @@ class _MapsScreenState extends State<MapsScreen> {
       ),
       onTap: () {
         //_onMarkerTapped(markerId);
-        print('Marker Tapped');
       },
-      onDragEnd: (LatLng position) {
-        print('Drag Ended');
-      },
+      onDragEnd: (LatLng position) {},
     )
   };
   GoogleMapController? mapController;
-  void liveLocation()async{
-
-
+  void liveLocation() async {
     LocationService service = LocationService();
     var locationData = await service.getLocation();
     setState(() {
-
       lat = locationData!.latitude.toString();
-      lng =  locationData!.longitude.toString();
-         kGooglePlex = CameraPosition(
+      lng = locationData!.longitude.toString();
+      kGooglePlex = CameraPosition(
         target: LatLng(double.parse(lat!), double.parse(lng!)),
         zoom: 17.4746,
       );
@@ -64,27 +50,17 @@ class _MapsScreenState extends State<MapsScreen> {
           ),
           onTap: () {
             //_onMarkerTapped(markerId);
-            print('Marker Tapped');
           },
-          onDragEnd: (LatLng position) {
-            print('Drag Ended');
-          },
+          onDragEnd: (LatLng position) {},
         )
       };
-      mapController?.animateCamera(
-          CameraUpdate.newCameraPosition(
-              CameraPosition(target: LatLng(double.parse(lat!), double.parse(lng!)), zoom: 17)
-            //17 is new zoom level
-          )
-      );
-
-
+      mapController?.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(
+              target: LatLng(double.parse(lat!), double.parse(lng!)), zoom: 17)
+          //17 is new zoom level
+          ));
     });
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -101,11 +77,8 @@ class _MapsScreenState extends State<MapsScreen> {
                 markers: Set<Marker>.of(markers.values),
                 initialCameraPosition: kGooglePlex,
                 onMapCreated: (GoogleMapController controller) {
-
                   mapController = controller;
-                  setState(() {
-
-                  });
+                  setState(() {});
                 },
               ),
             ),
@@ -120,8 +93,6 @@ class _MapsScreenState extends State<MapsScreen> {
                         backgroundColor: Colors.deepPurple),
                     onPressed: () {
                       liveLocation();
-                      print(lat);
-                      print(lng);
                     },
                     child: Text('Get Current Location'))),
             SizedBox(
@@ -134,17 +105,15 @@ class _MapsScreenState extends State<MapsScreen> {
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepPurple),
                     onPressed: () {
-
-                      if(lat != null && lng != null){
-                        Navigator.pop(context,({"lat":lat,"lng":lng}));
-                      }else{
+                      if (lat != null && lng != null) {
+                        Navigator.pop(context, ({"lat": lat, "lng": lng}));
+                      } else {
                         liveLocation();
                       }
 
                       /*liveLocation();
                       ChatController().addChatToFirebase();
                       Navigator.pop(context,({"lat":lat,"lng":lng}));*/
-
                     },
                     child: Text('Share Current Location')))
           ],

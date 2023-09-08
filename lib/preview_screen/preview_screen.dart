@@ -6,9 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:we_chat_app/modules/chat_screen/chat_controller/chat_controller.dart';
 
-
 class PreviewImage extends StatefulWidget {
-  const PreviewImage(this.path,{super.key});
+  PreviewImage(this.path, {super.key});
 
   final String path;
 
@@ -20,7 +19,6 @@ class _PreviewImageState extends State<PreviewImage> {
   final controller = Get.find<ChatController>();
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -34,34 +32,34 @@ class _PreviewImageState extends State<PreviewImage> {
               Row(
                 children: [
                   InkWell(
-                    child: Icon(Icons.cancel_outlined),
+                    child: const Icon(Icons.cancel_outlined),
                     onTap: () {
                       Navigator.pop(context);
                     },
                   ),
-                  Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  const Spacer(),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Icon(Icons.emoji_emotions_sharp),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Icon(Icons.crop),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Icon(Icons.text_fields_rounded),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
-                  Icon(Icons.edit_outlined),
+                  const Icon(Icons.edit_outlined),
                 ],
               ),
               Container(
@@ -71,11 +69,11 @@ class _PreviewImageState extends State<PreviewImage> {
                   fit: BoxFit.fill,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextField(
-                scrollPadding: EdgeInsets.only(bottom: 40),
+                scrollPadding: const EdgeInsets.only(bottom: 40),
 
                 keyboardType: TextInputType.multiline,
                 minLines: 1, //Normal textInputField will be displayed
@@ -83,7 +81,7 @@ class _PreviewImageState extends State<PreviewImage> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     Icons.image,
                     color: Colors.grey,
                   ),
@@ -94,18 +92,17 @@ class _PreviewImageState extends State<PreviewImage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         InkWell(
-                          child: Icon(Icons.send, color: Colors.grey),
+                          child: const Icon(Icons.send, color: Colors.grey),
                           onTap: () {
                             addChat();
-                          Navigator.pop(context);
-
+                            Navigator.pop(context);
                           },
                         ),
                       ],
                     ),
                   ),
-                  focusedBorder:
-                      OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -118,19 +115,22 @@ class _PreviewImageState extends State<PreviewImage> {
       ),
     );
   }
+
   final databaseRef = FirebaseDatabase.instance.ref('Chats');
   void addChat() {
     databaseRef.child('${controller.chatId}').push().set({
       'chats': controller.chat.text,
-      'Sender':controller.currentId,
+      'Sender': controller.currentId,
       'Reciever': controller.id,
       'time': controller.formattedTime,
-      'camera': controller.selectedImagePath == '' ? 'empty' : controller.selectedImagePath,
+      'camera': controller.selectedImagePath == ''
+          ? 'empty'
+          : controller.selectedImagePath,
       'gallery': controller.selectedGalleryImagePath == ''
           ? 'emptyGallery'
           : controller.selectedGalleryImagePath,
       'latitude': controller.latitude == '' ? 'empty' : controller.latitude,
-      'longitude': controller.longitude == '' ? 'empty' :  controller.longitude
+      'longitude': controller.longitude == '' ? 'empty' : controller.longitude
     });
     controller.chat.clear();
     controller.selectedImagePath = '';
@@ -138,5 +138,4 @@ class _PreviewImageState extends State<PreviewImage> {
     controller.latitude = '';
     controller.longitude = '';
   }
-
 }

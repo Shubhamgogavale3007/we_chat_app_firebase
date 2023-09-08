@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PopUp extends StatefulWidget {
@@ -47,9 +46,10 @@ class _PopUp extends State<PopUp> {
                       child: Icon(
                         Icons.camera_alt,
                         color: Colors.white,
-                      )),onTap: (){
-                  Navigator.pop(context,"camera");
-                },
+                      )),
+                  onTap: () {
+                    Navigator.pop(context, "camera");
+                  },
                 ),
               ),
               Padding(
@@ -61,12 +61,12 @@ class _PopUp extends State<PopUp> {
                       child: Icon(
                         Icons.image,
                         color: Colors.white,
-                      )),onTap: (){
-                  Navigator.pop(context,"gallery");
-                },
+                      )),
+                  onTap: () {
+                    Navigator.pop(context, "gallery");
+                  },
                 ),
               ),
-
             ],
           ),
           Row(
@@ -101,12 +101,12 @@ class _PopUp extends State<PopUp> {
                       child: Icon(
                         Icons.location_pin,
                         color: Colors.white,
-                      )),onTap: (){
-                  Navigator.pop(context,"location");
-                },
+                      )),
+                  onTap: () {
+                    Navigator.pop(context, "location");
+                  },
                 ),
               ),
-
             ],
           )
         ],

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:get/get.dart';
 import 'package:we_chat_app/modules/register_screen/register_controller/register_controller.dart';
 
@@ -9,62 +8,60 @@ class RegisterScreen extends GetView<RegisterController> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-        resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-
-        title: Text('Create a new Account'),
+        title: const Text('Create a new Account'),
         backgroundColor: Colors.deepPurple,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             TextField(
               controller: controller.username,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(),
                   border: OutlineInputBorder(),
                   hintText: 'Enter Username',
                   hintStyle: TextStyle(color: Colors.deepPurple)),
             ),
-
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             TextField(
               controller: controller.emailController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(),
                   border: OutlineInputBorder(),
                   hintText: 'Enter E-mail',
                   hintStyle: TextStyle(color: Colors.deepPurple)),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             TextField(
               controller: controller.passwordController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(),
                   border: OutlineInputBorder(),
                   hintText: 'Enter Password',
                   hintStyle: TextStyle(color: Colors.deepPurple)),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             TextField(
               controller: controller.image,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(),
                   border: OutlineInputBorder(),
                   hintText: 'Enter Image URL....',
                   hintStyle: TextStyle(color: Colors.deepPurple)),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             SizedBox(
@@ -87,7 +84,6 @@ class RegisterScreen extends GetView<RegisterController> {
                     ),
                   )),
             ),
-
           ],
         ),
       ),

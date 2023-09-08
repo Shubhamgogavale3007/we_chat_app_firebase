@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/services.dart';
 import 'package:location/location.dart';
 
@@ -8,8 +6,7 @@ class LocationService {
   bool serviceEnabled = false;
   PermissionStatus? grantPermission;
 
-
-  LocationService(){
+  LocationService() {
     location = Location();
   }
 
@@ -38,10 +35,8 @@ class LocationService {
   }
 
   Future<LocationData?> getLocation() async {
-
     if (await checkPermission()) {
-
-      final locationData =  location.getLocation();
+      final locationData = location.getLocation();
       return locationData;
     }
     return null;
