@@ -1,6 +1,5 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:we_chat_app/modules/chat_screen/chat_binding/chat_binding.dart';
-import 'package:we_chat_app/modules/chat_screen/chat_controller/chat_controller.dart';
 import 'package:we_chat_app/modules/chat_screen/chat_view/chat_view.dart';
 import 'package:we_chat_app/modules/dashboard_screen/dashboard_binding/dashboard_binding.dart';
 import 'package:we_chat_app/modules/dashboard_screen/dashboard_view/dashboard_view.dart';

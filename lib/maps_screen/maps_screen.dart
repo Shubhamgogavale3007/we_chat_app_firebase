@@ -11,16 +11,16 @@ class MapsScreen extends StatefulWidget {
 
 class _MapsScreenState extends State<MapsScreen> {
   String? lat, lng;
-  CameraPosition kGooglePlex = CameraPosition(
+  CameraPosition kGooglePlex = const CameraPosition(
     target: LatLng(23.04514731288731, 72.51512427787496),
     zoom: 17.4746,
   );
 
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{
-    MarkerId('marker_id_1'): Marker(
-      markerId: MarkerId('marker_id_1'),
-      position: LatLng(23.04514731288731, 72.51512427787496),
-      infoWindow: InfoWindow(
+    const MarkerId('marker_id_1'): Marker(
+      markerId: const MarkerId('marker_id_1'),
+      position: const LatLng(23.04514731288731, 72.51512427787496),
+      infoWindow: const InfoWindow(
         title: 'My current location',
       ),
       onTap: () {
@@ -42,10 +42,10 @@ class _MapsScreenState extends State<MapsScreen> {
       );
 
       markers = <MarkerId, Marker>{
-        MarkerId('marker_id_1'): Marker(
-          markerId: MarkerId('marker_id_1'),
+         const MarkerId("marker_id_1"): Marker(
+          markerId: const MarkerId('marker_id_1'),
           position: LatLng(double.parse(lat!), double.parse(lng!)),
-          infoWindow: InfoWindow(
+          infoWindow:  const InfoWindow(
             title: 'My current location',
           ),
           onTap: () {
@@ -82,7 +82,7 @@ class _MapsScreenState extends State<MapsScreen> {
                 },
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             SizedBox(
@@ -94,8 +94,8 @@ class _MapsScreenState extends State<MapsScreen> {
                     onPressed: () {
                       liveLocation();
                     },
-                    child: Text('Get Current Location'))),
-            SizedBox(
+                    child: const Text('Get Current Location'))),
+            const SizedBox(
               height: 20,
             ),
             SizedBox(
@@ -115,7 +115,7 @@ class _MapsScreenState extends State<MapsScreen> {
                       ChatController().addChatToFirebase();
                       Navigator.pop(context,({"lat":lat,"lng":lng}));*/
                     },
-                    child: Text('Share Current Location')))
+                    child: const Text('Share Current Location')))
           ],
         ),
       ),

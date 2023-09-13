@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 import 'package:we_chat_app/modules/chat_screen/chat_controller/chat_controller.dart';
 
 class PreviewImage extends StatefulWidget {
@@ -17,6 +19,7 @@ class PreviewImage extends StatefulWidget {
 
 class _PreviewImageState extends State<PreviewImage> {
   final controller = Get.find<ChatController>();
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,12 +65,24 @@ class _PreviewImageState extends State<PreviewImage> {
                   const Icon(Icons.edit_outlined),
                 ],
               ),
-              Container(
-                height: 600,
-                child: Image.file(
-                  File(widget.path),
-                  fit: BoxFit.fill,
-                ),
+              Stack(
+                children: [
+                  Container(
+                    height: 600,
+                    child: Image.file(
+                      File(widget.path),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Visibility(
+                    visible: isLoading ? true : false,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.black,
+                      ),
+                    ),
+                  )
+                ],
               ),
               const SizedBox(
                 height: 10,
@@ -93,9 +108,23 @@ class _PreviewImageState extends State<PreviewImage> {
                       children: [
                         InkWell(
                           child: const Icon(Icons.send, color: Colors.grey),
-                          onTap: () {
-                            addChat();
-                            Navigator.pop(context);
+                          onTap: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            Reference ref =
+                                FirebaseStorage.instance.ref('Images');
+                            late File _photo;
+                            _photo = File(widget.path.toString());
+                            String fileName = _photo.path.split('/').last;
+                            final TaskSnapshot snapshot = await ref
+                                .child(basename(fileName))
+                                .putFile(_photo);
+                            controller.selectedGalleryImagePath =
+                                await snapshot.ref.getDownloadURL();
+                            print(
+                                '----->>>>${controller.selectedGalleryImagePath}');
+                            addChat(context);
                           },
                         ),
                       ],
@@ -117,7 +146,7 @@ class _PreviewImageState extends State<PreviewImage> {
   }
 
   final databaseRef = FirebaseDatabase.instance.ref('Chats');
-  void addChat() {
+  void addChat(BuildContext context) {
     databaseRef.child('${controller.chatId}').push().set({
       'chats': controller.chat.text,
       'Sender': controller.currentId,
@@ -131,6 +160,10 @@ class _PreviewImageState extends State<PreviewImage> {
           : controller.selectedGalleryImagePath,
       'latitude': controller.latitude == '' ? 'empty' : controller.latitude,
       'longitude': controller.longitude == '' ? 'empty' : controller.longitude
+    });
+    setState(() {
+      isLoading = false;
+      Navigator.pop(context);
     });
     controller.chat.clear();
     controller.selectedImagePath = '';

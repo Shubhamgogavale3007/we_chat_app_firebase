@@ -1,15 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
-
 import '../../../preview_screen/preview_screen.dart';
 
 class ChatController extends GetxController {
@@ -33,7 +28,6 @@ class ChatController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-
     image = Get.arguments[0];
     userName = Get.arguments[1];
     id = Get.arguments[2];
@@ -42,27 +36,23 @@ class ChatController extends GetxController {
     getUserName();
     getUserId();
     checkWallpaper();
-
   }
 
+  /// DELETE CHATS
   void deleteAllChats() {
     databaseRef.child(chatId.value).remove();
   }
 
   void getUserName() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-
     usernamecall = sp.getString('userName')!;
-
-    print('------>${usernamecall}');
+    print('------>$usernamecall');
   }
 
   void getUserId() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-
     useridcall = sp.getString('userId')!;
-
-    print('------>${useridcall}');
+    print('------>$useridcall');
   }
 
   /// SELECT IMAGE FROM CAMERA
@@ -70,7 +60,7 @@ class ChatController extends GetxController {
     XFile? file = await ImagePicker()
         .pickImage(source: ImageSource.camera, imageQuality: 10);
     if (file != null) {
-      selectedGalleryImagePath = file.path;
+      selectedImagePath = file.path;
       Get.to(
         PreviewImage(file.path),
       );
@@ -81,20 +71,23 @@ class ChatController extends GetxController {
   }
 
   /// SELECT IMAGE FROM GALLERY
-  selectImageFromGallery() async {
+
+  addImagesStorageGallery() async {
     XFile? image = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 10);
     if (image != null) {
-      selectedImagePath = image.path;
-      Get.to(
-        PreviewImage(image.path),
-      );
+      /// RIGHT WAY
+      Get.to(PreviewImage(image.path));
+
+      /// WRONG WAY
+/*      _photo = File(image.path.toString());
+      final uploadTask = ref.child(_photo.path).putFile(_photo);
+      final taskSnapshot = await uploadTask.snapshot.ref.getDownloadURL();
+      selectedGalleryImagePath = await taskSnapshot.toString();*/
     } else {
       return '';
     }
   }
-
-
 
   /// Set Wallpaper
   setWallpaper() async {
@@ -102,20 +95,19 @@ class ChatController extends GetxController {
     XFile? image = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 10);
     if (image != null) {
-
       setWallpaperBackground.value = image.path;
       sp.setString('wallpaper', setWallpaperBackground.toString());
-      print('setWallpaperBackground----> '+sp.getString("wallpaper").toString());
-
-
+      print('setWallpaperBackground----> ' +
+          sp.getString("wallpaper").toString());
     } else {
       return '';
     }
   }
-/// CHECK WALLPAPER IS SET OR NOT
+
+  /// CHECK WALLPAPER IS SET OR NOT
   Future<void> checkWallpaper() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    if(sp.getString("wallpaper").toString() != null){
+    if (sp.getString("wallpaper").toString() != null) {
       setWallpaperBackground.value = sp.getString("wallpaper").toString();
     }
   }
@@ -168,4 +160,18 @@ class ChatController extends GetxController {
   }
 
   String formattedTime = DateFormat('kk:mm aa').format(DateTime.now());
+
+/*  /// SELECT IMAGE FROM GALLERY
+  selectImageFromGallery() async {
+    XFile? image = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 10);
+    if (image != null) {
+      selectedImagePath = image.path;
+      Get.to(
+        PreviewImage(image.path),
+      );
+    } else {
+      return '';
+    }
+  }*/
 }

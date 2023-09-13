@@ -86,7 +86,6 @@ class ChatScreen extends GetView<ChatController> {
                       },
                       value: 3,
                       child: Text("Delete All Chats")),
-
                   PopupMenuItem(
                       value: 4,
                       // row has two child icon and text
@@ -207,21 +206,20 @@ class ChatScreen extends GetView<ChatController> {
                                                           ),
                                                         ),
                                                         Visibility(
-                                                          visible: chatList[
-                                                                          index]
-                                                                      [
-                                                                      'gallery'] ==
-                                                                  'emptyGallery'
-                                                              ? false
-                                                              : true,
-                                                          child: Image.file(
-                                                            File(chatList[index]
-                                                                    ['gallery']
-                                                                .toString()),
-                                                            height: 200,
-                                                            width: 200,
-                                                          ),
-                                                        ),
+                                                            visible: chatList[
+                                                                            index]
+                                                                        [
+                                                                        'gallery'] ==
+                                                                    'emptyGallery'
+                                                                ? false
+                                                                : true,
+                                                            child:
+                                                                Image.network(
+                                                              chatList[index]
+                                                                  ['gallery'].toString(),
+                                                              height: 200,
+                                                              width: 200,
+                                                            )),
                                                         chatList[index][
                                                                     'latitude'] ==
                                                                 'empty'
@@ -351,7 +349,7 @@ class ChatScreen extends GetView<ChatController> {
                                       if (value == "camera") {
                                         controller.selectImageFromCamera();
                                       } else if (value == "gallery") {
-                                        controller.selectImageFromGallery();
+                                        controller.addImagesStorageGallery();
                                       } else if (value == "location") {
                                         Get.to(() => const MapsScreen())!
                                             .then((value) {
