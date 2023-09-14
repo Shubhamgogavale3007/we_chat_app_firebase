@@ -60,9 +60,12 @@ class ChatController extends GetxController {
     XFile? file = await ImagePicker()
         .pickImage(source: ImageSource.camera, imageQuality: 10);
     if (file != null) {
-      selectedImagePath = file.path;
-      Get.to(
-        PreviewImage(file.path),
+   /*   selectedImagePath = file.path;
+      addChatToFirebase();*/
+       Get.to(
+        PreviewImage(file.path),arguments: [
+          "camera"
+       ]
       );
       /* return file.path;*/
     } else {
@@ -77,7 +80,9 @@ class ChatController extends GetxController {
         .pickImage(source: ImageSource.gallery, imageQuality: 10);
     if (image != null) {
       /// RIGHT WAY
-      Get.to(PreviewImage(image.path));
+      Get.to(PreviewImage(image.path),arguments: [
+        "gallery"
+      ]);
 
       /// WRONG WAY
 /*      _photo = File(image.path.toString());

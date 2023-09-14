@@ -18,8 +18,17 @@ class PreviewImage extends StatefulWidget {
 }
 
 class _PreviewImageState extends State<PreviewImage> {
-  final controller = Get.find<ChatController>();
+  static ChatController controller = Get.find<ChatController>();
   bool isLoading = false;
+
+  String type = '';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    type = Get.arguments[0];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,11 +129,18 @@ class _PreviewImageState extends State<PreviewImage> {
                             final TaskSnapshot snapshot = await ref
                                 .child(basename(fileName))
                                 .putFile(_photo);
-                            controller.selectedGalleryImagePath =
-                                await snapshot.ref.getDownloadURL();
-                            print(
-                                '----->>>>${controller.selectedGalleryImagePath}');
-                            addChat(context);
+                            if (type == 'gallery') {
+                              controller.selectedGalleryImagePath =
+                                  await snapshot.ref.getDownloadURL();
+                              print(
+                                  '----->>>>${controller.selectedGalleryImagePath}');
+                              addChat(context);
+                            } else {
+                              controller.selectedImagePath =
+                                  await snapshot.ref.getDownloadURL();
+                              print('----->>>>${controller.selectedImagePath}');
+                              addChat(context);
+                            }
                           },
                         ),
                       ],

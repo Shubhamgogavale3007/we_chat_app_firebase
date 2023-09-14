@@ -197,13 +197,12 @@ class ChatScreen extends GetView<ChatController> {
                                                                   'empty'
                                                               ? false
                                                               : true,
-                                                          child: Image.file(
-                                                            File(chatList[index]
-                                                                    ['camera']
-                                                                .toString()),
+                                                          child:       Image.network(
+                                                            chatList[index]
+                                                            ['camera'].toString(),
                                                             height: 200,
                                                             width: 200,
-                                                          ),
+                                                          )
                                                         ),
                                                         Visibility(
                                                             visible: chatList[
