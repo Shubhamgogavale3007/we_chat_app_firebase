@@ -1,14 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../preview_screen/preview_screen.dart';
 
 class ChatController extends GetxController {
+  GoogleMapController? mapController;
   final databaseRef = FirebaseDatabase.instance.ref('Chats');
+  final firestore = FirebaseFirestore.instance.collection('Users Chats');
   final auth = FirebaseAuth.instance;
   TextEditingController chat = TextEditingController();
   String image = '';
@@ -60,13 +64,9 @@ class ChatController extends GetxController {
     XFile? file = await ImagePicker()
         .pickImage(source: ImageSource.camera, imageQuality: 10);
     if (file != null) {
-   /*   selectedImagePath = file.path;
+      /*   selectedImagePath = file.path;
       addChatToFirebase();*/
-       Get.to(
-        PreviewImage(file.path),arguments: [
-          "camera"
-       ]
-      );
+      Get.to(PreviewImage(file.path), arguments: ["camera"]);
       /* return file.path;*/
     } else {
       return '';
@@ -80,9 +80,7 @@ class ChatController extends GetxController {
         .pickImage(source: ImageSource.gallery, imageQuality: 10);
     if (image != null) {
       /// RIGHT WAY
-      Get.to(PreviewImage(image.path),arguments: [
-        "gallery"
-      ]);
+      Get.to(PreviewImage(image.path), arguments: ["gallery"]);
 
       /// WRONG WAY
 /*      _photo = File(image.path.toString());
@@ -179,4 +177,26 @@ class ChatController extends GetxController {
       return '';
     }
   }*/
+
+  /// FOR FIRESTORE
+
+  void addChatToFirestore() {
+    firestore
+        .doc('${chatId}')
+        .collection('chats')
+        .add({
+          'chats': chat.text,
+          'Sender': currentId,
+          'Reciever': id,
+          'time': formattedTime,
+          'camera': selectedImagePath == '' ? 'empty' : selectedImagePath,
+          'gallery': selectedGalleryImagePath == ''
+              ? 'emptyGallery'
+              : selectedGalleryImagePath,
+          'latitude': latitude == '' ? 'empty' : latitude,
+          'longitude': longitude == '' ? 'empty' : longitude
+        })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
 }

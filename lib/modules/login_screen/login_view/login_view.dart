@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:we_chat_app/app_routes.dart';
 import 'package:we_chat_app/modules/login_screen/login_controller/login_controller.dart';
@@ -19,9 +18,7 @@ class LoginScreen extends GetView<LoginController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 0,
-            ),
+
             const Text(
               'Login Here',
               style: TextStyle(

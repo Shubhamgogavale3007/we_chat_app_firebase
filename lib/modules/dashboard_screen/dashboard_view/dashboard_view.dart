@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../app_routes.dart';
 import '../dashboard_controller/dashboard_controller.dart';
 
@@ -21,7 +20,7 @@ class DashboardScreen extends GetView<DashboardController> {
               child: const Icon(Icons.login),
               onTap: () {
                 FirebaseAuth.instance.signOut().then((value) {
-                  Get.back();
+                    Get.back();
                 });
               },
             ),

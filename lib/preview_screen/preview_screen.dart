@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
@@ -85,7 +83,7 @@ class _PreviewImageState extends State<PreviewImage> {
                   ),
                   Visibility(
                     visible: isLoading ? true : false,
-                    child: Center(
+                    child: const Center(
                       child: CircularProgressIndicator(
                         color: Colors.black,
                       ),

@@ -27,8 +27,8 @@ class _PopUp extends State<PopUp> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: CircleAvatar(
                     backgroundColor: Colors.deepPurple,
                     radius: 30,
@@ -40,7 +40,7 @@ class _PopUp extends State<PopUp> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                       backgroundColor: Colors.red,
                       radius: 30,
                       child: Icon(
@@ -55,7 +55,7 @@ class _PopUp extends State<PopUp> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                       backgroundColor: Colors.pink,
                       radius: 30,
                       child: Icon(
@@ -72,8 +72,8 @@ class _PopUp extends State<PopUp> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: CircleAvatar(
                     backgroundColor: Colors.orange,
                     radius: 30,
@@ -82,8 +82,8 @@ class _PopUp extends State<PopUp> {
                       color: Colors.white,
                     )),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: CircleAvatar(
                     backgroundColor: Colors.blue,
                     radius: 30,
@@ -95,7 +95,7 @@ class _PopUp extends State<PopUp> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                       backgroundColor: Colors.green,
                       radius: 30,
                       child: Icon(

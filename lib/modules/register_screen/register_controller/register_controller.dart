@@ -1,3 +1,4 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,6 +31,15 @@ class RegisterController extends GetxController {
               email: emailController.text.toString(),
               password: passwordController.text.toString())
           .then((value) {
+        /// FOR FIRESTORE
+        /*final firestore = FirebaseFirestore.instance.collection('Users');
+        firestore.add({
+          'username': username.text,
+          'image':
+          'https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?w=1060&t=st=1693314174~exp=1693314774~hmac=bb2af83c91553594a75fe57df7bc63ea1a3f2f11bd31b36b0789db6ec233f90a',
+          'id': value.user!.uid.toString(),
+        });*/
+        /// FOR FIREBASE
         databaseRef.push().set({
           'username': username.text,
           'image': /*image.text*/
@@ -40,7 +50,6 @@ class RegisterController extends GetxController {
         Utils().toastMessage('Registered Successfully');
         emailController.clear();
         username.clear();
-
         passwordController.clear();
       }).onError((error, stackTrace) {
         if (emailController.text.isNotEmpty &&

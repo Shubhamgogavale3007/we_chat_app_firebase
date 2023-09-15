@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:we_chat_app/modules/register_screen/register_controller/register_controller.dart';
 
 class RegisterScreen extends GetView<RegisterController> {
+  const RegisterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

@@ -1,22 +1,19 @@
 import 'dart:io';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:we_chat_app/dialog/alert_dialog.dart';
 import 'package:we_chat_app/dialog/dialog_screen.dart';
 import 'package:we_chat_app/maps_screen/maps_screen.dart';
 import 'package:we_chat_app/modules/chat_screen/chat_controller/chat_controller.dart';
-
+import 'package:we_chat_app/theme_dialog.dart';
 import '../../../video_call_screen.dart';
 import '../../../voice_call_screen.dart';
 
 class ChatScreen extends GetView<ChatController> {
   @override
   Widget build(BuildContext context) {
-    GoogleMapController? mapController;
     final controller = Get.find<ChatController>();
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -43,7 +40,7 @@ class ChatScreen extends GetView<ChatController> {
               InkWell(
                 child: const Icon(Icons.call),
                 onTap: () {
-                  Get.to(VoiceCallScreen(), arguments: [
+                  Get.to(const VoiceCallScreen(), arguments: [
                     controller.chatId.toString(),
                     controller.usernamecall,
                     controller.useridcall,
@@ -56,7 +53,7 @@ class ChatScreen extends GetView<ChatController> {
               InkWell(
                 child: const Icon(Icons.videocam_sharp),
                 onTap: () {
-                  Get.to(VideoCallScreen(), arguments: [
+                  Get.to(const VideoCallScreen(), arguments: [
                     controller.chatId.toString(),
                     controller.usernamecall,
                     controller.useridcall,
@@ -74,9 +71,19 @@ class ChatScreen extends GetView<ChatController> {
                       print('------>${controller.setWallpaperBackground}');
                     },
                     value: 1,
-                    child: Text("Change Background Wallpaper"),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.wallpaper,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        const Text("Change Wallpaper"),
+                      ],
+                    ),
                   ),
-                  PopupMenuItem(value: 2, child: Text("Search")),
                   PopupMenuItem(
                       onTap: () {
                         alertDialog('This messages will not be recovered')
@@ -84,19 +91,73 @@ class ChatScreen extends GetView<ChatController> {
                           Get.back();
                         });
                       },
-                      value: 3,
-                      child: Text("Delete All Chats")),
+                      value: 2,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.delete_outline,
+                            color: Colors.black,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          const Text("Delete All Chats"),
+                        ],
+                      )),
                   PopupMenuItem(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return ThemeDialog();
+                            });
+                      },
+                      value: 3,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.brightness_6,
+                            color: Colors.black,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("Change Theme"),
+                        ],
+                      )),
+                  const PopupMenuItem(
                       value: 4,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.settings_outlined,
+                            color: Colors.black,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("Settings"),
+                        ],
+                      )),
+                  const PopupMenuItem(
+                      value: 5,
                       // row has two child icon and text
-                      child: Text("About")),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.info_outline,
+                            color: Colors.black,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("About"),
+                        ],
+                      )),
                 ],
-                offset: Offset(0, 50),
+                offset: const Offset(0, 50),
                 color: Colors.white,
                 elevation: 5,
-              ),
-              const SizedBox(
-                width: 10,
               ),
             ],
           ),
@@ -190,20 +251,21 @@ class ChatScreen extends GetView<ChatController> {
                                                           ),
                                                         ),
                                                         Visibility(
-                                                          visible: chatList[
-                                                                          index]
-                                                                      [
-                                                                      'camera'] ==
-                                                                  'empty'
-                                                              ? false
-                                                              : true,
-                                                          child:       Image.network(
-                                                            chatList[index]
-                                                            ['camera'].toString(),
-                                                            height: 200,
-                                                            width: 200,
-                                                          )
-                                                        ),
+                                                            visible: chatList[
+                                                                            index]
+                                                                        [
+                                                                        'camera'] ==
+                                                                    'empty'
+                                                                ? false
+                                                                : true,
+                                                            child:
+                                                                Image.network(
+                                                              chatList[index]
+                                                                      ['camera']
+                                                                  .toString(),
+                                                              height: 200,
+                                                              width: 200,
+                                                            )),
                                                         Visibility(
                                                             visible: chatList[
                                                                             index]
@@ -214,8 +276,9 @@ class ChatScreen extends GetView<ChatController> {
                                                                 : true,
                                                             child:
                                                                 Image.network(
-                                                              chatList[index]
-                                                                  ['gallery'].toString(),
+                                                              chatList[index][
+                                                                      'gallery']
+                                                                  .toString(),
                                                               height: 200,
                                                               width: 200,
                                                             )),
@@ -260,9 +323,10 @@ class ChatScreen extends GetView<ChatController> {
                                                                   ),
                                                                   onMapCreated:
                                                                       (GoogleMapController
-                                                                          controller) {
-                                                                    mapController =
-                                                                        controller;
+                                                                          controllerx) {
+                                                                    controller
+                                                                            .mapController =
+                                                                        controllerx;
                                                                   },
                                                                 ),
                                                               ),
@@ -327,16 +391,6 @@ class ChatScreen extends GetView<ChatController> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 InkWell(
-                                  child: const Icon(Icons.send,
-                                      color: Colors.grey),
-                                  onTap: () {
-                                    controller.addChatToFirebase();
-                                  },
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                InkWell(
                                   child: const Icon(Icons.attach_file,
                                       color: Colors.grey),
                                   onTap: () {
@@ -363,10 +417,19 @@ class ChatScreen extends GetView<ChatController> {
                                   },
                                 ),
                                 const SizedBox(
+                                  width: 25,
+                                ),
+                                InkWell(
+                                  child: const Icon(Icons.send,
+                                      color: Colors.grey),
+                                  onTap: () {
+                                    /*     controller.addChatToFirestore();*/
+                                    controller.addChatToFirebase();
+                                  },
+                                ),
+                                const SizedBox(
                                   width: 10,
                                 ),
-                                const Icon(Icons.camera_alt,
-                                    color: Colors.grey),
                               ],
                             ),
                           ),

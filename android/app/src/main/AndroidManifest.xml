@@ -14,7 +14,7 @@
     <application
         android:label="we_chat_app"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/logo_new">
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCyggjDHjrEiw-PAEKjyXAqwFvMOQZAhfY"/>
 
