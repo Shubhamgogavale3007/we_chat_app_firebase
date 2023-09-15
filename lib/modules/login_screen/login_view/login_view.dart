@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:we_chat_app/app_routes.dart';
+import 'package:we_chat_app/custom_widget/custom_textfeild.dart';
 import 'package:we_chat_app/modules/login_screen/login_controller/login_controller.dart';
 
 class LoginScreen extends GetView<LoginController> {
@@ -18,7 +19,6 @@ class LoginScreen extends GetView<LoginController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-
             const Text(
               'Login Here',
               style: TextStyle(
@@ -29,23 +29,31 @@ class LoginScreen extends GetView<LoginController> {
             const SizedBox(
               height: 80,
             ),
-            TextField(
+            CustomTextFeild(
+                controller: controller.emailController,
+                hintText: 'Enter E-mail',
+                color: Colors.deepPurple),
+            /*   TextField(
               controller: controller.emailController,
               decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter E-mail',
                   hintStyle: TextStyle(color: Colors.deepPurple)),
-            ),
+            ),*/
             const SizedBox(
               height: 30,
             ),
-            TextField(
+            CustomTextFeild(
+                controller: controller.passwordController,
+                hintText: 'Enter Password',
+                color: Colors.deepPurple),
+            /*    TextField(
               controller: controller.passwordController,
               decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter Password',
                   hintStyle: TextStyle(color: Colors.deepPurple)),
-            ),
+            ),*/
             const SizedBox(
               height: 30,
             ),

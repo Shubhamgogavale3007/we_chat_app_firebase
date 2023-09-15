@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:we_chat_app/app_routes.dart';
@@ -13,7 +11,7 @@ class SplashScreen extends GetView<SplashController> {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 5), () => Get.toNamed(AppRoutes.login));
+    Timer(const Duration(seconds: 3), () => Get.toNamed(AppRoutes.login));
 
     return Scaffold(
       body: Column(

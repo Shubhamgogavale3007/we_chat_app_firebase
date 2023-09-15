@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:we_chat_app/custom_widget/custom_textfeild.dart';
 import 'package:we_chat_app/modules/register_screen/register_controller/register_controller.dart';
 
 class RegisterScreen extends GetView<RegisterController> {
@@ -21,47 +22,63 @@ class RegisterScreen extends GetView<RegisterController> {
             const SizedBox(
               height: 30,
             ),
-            TextField(
+            CustomTextFeild(
+                controller: controller.username,
+                hintText: 'Enter Username',
+                color: Colors.deepPurple),
+        /*    TextField(
               controller: controller.username,
               decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(),
                   border: OutlineInputBorder(),
                   hintText: 'Enter Username',
                   hintStyle: TextStyle(color: Colors.deepPurple)),
-            ),
+            ),*/
             const SizedBox(
               height: 30,
             ),
-            TextField(
+            CustomTextFeild(
+                controller: controller.emailController,
+                hintText: 'Enter E-mail',
+                color: Colors.deepPurple),
+         /*   TextField(
               controller: controller.emailController,
               decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(),
                   border: OutlineInputBorder(),
                   hintText: 'Enter E-mail',
                   hintStyle: TextStyle(color: Colors.deepPurple)),
-            ),
+            ),*/
             const SizedBox(
               height: 30,
             ),
-            TextField(
+            CustomTextFeild(
+                controller: controller.passwordController,
+                hintText: 'Enter Password',
+                color: Colors.deepPurple),
+          /*  TextField(
               controller: controller.passwordController,
               decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(),
                   border: OutlineInputBorder(),
                   hintText: 'Enter Password',
                   hintStyle: TextStyle(color: Colors.deepPurple)),
-            ),
+            ),*/
             const SizedBox(
               height: 30,
             ),
-            TextField(
+            CustomTextFeild(
+                controller: controller.image,
+                hintText: 'Enter Image URL......',
+                color: Colors.deepPurple),
+         /*   TextField(
               controller: controller.image,
               decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(),
                   border: OutlineInputBorder(),
                   hintText: 'Enter Image URL....',
                   hintStyle: TextStyle(color: Colors.deepPurple)),
-            ),
+            ),*/
             const SizedBox(
               height: 50,
             ),

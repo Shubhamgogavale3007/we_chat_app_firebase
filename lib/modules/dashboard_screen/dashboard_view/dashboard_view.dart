@@ -1,8 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../app_routes.dart';
+import 'package:we_chat_app/custom_widget/customDashboardView.dart';
 import '../dashboard_controller/dashboard_controller.dart';
 
 class DashboardScreen extends GetView<DashboardController> {
@@ -20,7 +19,7 @@ class DashboardScreen extends GetView<DashboardController> {
               child: const Icon(Icons.login),
               onTap: () {
                 FirebaseAuth.instance.signOut().then((value) {
-                    Get.back();
+                  Get.back();
                 });
               },
             ),
@@ -53,15 +52,26 @@ class DashboardScreen extends GetView<DashboardController> {
                           return ListView.builder(
                               shrinkWrap: true,
                               itemCount: list.length,
-                              itemBuilder: (context, index){
-                                if (list[index]['id'] == controller.auth.currentUser!.uid) {
-                                  controller.setUserName(list[index]['username']);
+                              itemBuilder: (context, index) {
+                                if (list[index]['id'] ==
+                                    controller.auth.currentUser!.uid) {
+                                  controller
+                                      .setUserName(list[index]['username']);
                                 }
-                                if (list[index]['id'] == controller.auth.currentUser!.uid) {
+                                if (list[index]['id'] ==
+                                    controller.auth.currentUser!.uid) {
                                   controller.setUserId(list[index]['id']);
                                 }
 
-                                return Visibility(
+                                /// CUSTOM WIDGET
+                                return CustomDashboardView(
+                                  index: index,
+                                  list: list,
+                                  controller: DashboardController(),
+                                );
+
+                                /// NORMAL WIDGET
+                                /*  return Visibility(
                                   visible: list[index]['id'] ==
                                           controller.auth.currentUser!.uid
                                       ? false
@@ -121,7 +131,7 @@ class DashboardScreen extends GetView<DashboardController> {
                                       },
                                     ),
                                   ),
-                                );
+                                );*/
                               });
                         } else {
                           return const Center(child: Text('No Data Found'));
